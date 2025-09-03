@@ -89,6 +89,12 @@ class DriverProfile extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 8.0,
+
+      ),
     );
   }
 }
+
