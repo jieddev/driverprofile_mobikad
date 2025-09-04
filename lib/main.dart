@@ -4,7 +4,15 @@ void main() {
   runApp(MaterialApp(home: DriverProfile()));
 }
 
-class DriverProfile extends StatelessWidget {
+class DriverProfile extends StatefulWidget {
+  @override
+  State<DriverProfile> createState() => _DriverProfileState();
+}
+
+class _DriverProfileState extends State<DriverProfile> {
+
+  int reputationScore = 95;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,6 +20,15 @@ class DriverProfile extends StatelessWidget {
         title: Text("Driver Profile", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: Color(0xFF133A70),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            reputationScore += 1;
+          });
+        },
+        backgroundColor: Colors.grey,
+        child: Icon(Icons.plus_one),
       ),
       body: Padding(
         padding: EdgeInsetsGeometry.fromLTRB(30.0, 40.0, 30.0, 0),
@@ -59,7 +76,7 @@ class DriverProfile extends StatelessWidget {
             ),
             SizedBox(height: 5.0),
             Text(
-              "99",
+              "$reputationScore",
               style: TextStyle(
                 color: Color(0xFF133A70),
                 fontWeight: FontWeight.bold,
@@ -81,7 +98,7 @@ class DriverProfile extends StatelessWidget {
             ),
             Row(
               children: [
-                Icon(Icons.phone, color: Colors.grey[400],),
+                Icon(Icons.phone, color: Colors.grey[400]),
                 SizedBox(width: 10.0),
                 Text("09510353733"),
               ],
@@ -92,9 +109,9 @@ class DriverProfile extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         notchMargin: 8.0,
-
       ),
     );
   }
 }
+
 
