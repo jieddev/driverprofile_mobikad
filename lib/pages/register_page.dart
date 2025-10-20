@@ -21,12 +21,18 @@ class _RegisterPageState extends State<RegisterPage> {
   final addressTextEditingController = TextEditingController();
   final contactNumberTextEditingController = TextEditingController();
 
+  final tricycleNumberTextEditingController = TextEditingController();
+  final tricycleColorTextEditingController = TextEditingController();
+  String? selectedTricycleColor;
+  final tricyclePlateNumberTextEditingController = TextEditingController();
+  // OR/CR Picture
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "The Stepper Widget",
+          "Registration",
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -127,8 +133,8 @@ class _RegisterPageState extends State<RegisterPage> {
               return null;
             },
           ),
-          
-          const SizedBox(height: 30.0,),
+
+          const SizedBox(height: 30.0),
 
           CustomTextfield(
             controller: middleNameTextEditingController,
@@ -143,7 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
             },
           ),
 
-          const SizedBox(height: 30.0,),
+          const SizedBox(height: 30.0),
 
           CustomTextfield(
             controller: lastNameTextEditingController,
@@ -158,7 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
             },
           ),
 
-          const SizedBox(height: 30.0,),
+          const SizedBox(height: 30.0),
 
           CustomTextfield(
             controller: dateOfBirthTextEditingController,
@@ -173,7 +179,7 @@ class _RegisterPageState extends State<RegisterPage> {
             },
           ),
 
-          const SizedBox(height: 30.0,),
+          const SizedBox(height: 30.0),
 
           Container(
             decoration: BoxDecoration(
@@ -212,7 +218,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
 
-          const SizedBox(height: 60.0,),
+          const SizedBox(height: 60.0),
 
           CustomTextfield(
             controller: addressTextEditingController,
@@ -227,7 +233,7 @@ class _RegisterPageState extends State<RegisterPage> {
             },
           ),
 
-          const SizedBox(height: 30.0,),
+          const SizedBox(height: 30.0),
 
           CustomTextfield(
             controller: contactNumberTextEditingController,
@@ -242,7 +248,7 @@ class _RegisterPageState extends State<RegisterPage> {
             },
           ),
 
-
+          const SizedBox(height: 30.0),
         ],
       ),
     ),
@@ -250,13 +256,88 @@ class _RegisterPageState extends State<RegisterPage> {
       title: const Text("Vehicle Information"),
       state: currentStep > 1 ? StepState.complete : StepState.indexed,
       isActive: currentStep >= 1,
-      content: Column(children: <Widget> [
+      content: Column(
+        children: <Widget>[
+          CustomTextfield(
+            controller: tricycleNumberTextEditingController,
+            labelText: "Tricycle Number",
+            hintText: "Enter your tricycle number",
+            prefixIcon: Icons.numbers,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter your tricycle number";
+              }
+              return null;
+            },
+          ),
+
+          const SizedBox(height: 30.0),
+
+          CustomTextfield(
+            controller: tricyclePlateNumberTextEditingController,
+            labelText: "Tricycle Plate Number",
+            hintText: "Enter your tricycle plate number",
+            prefixIcon: Icons.numbers,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter your tricycle number";
+              }
+              return null;
+            },
+          ),
+
+          const SizedBox(height: 30.0),
+
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: Colors.grey),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: DropdownButtonFormField<String>(
+              value: selectedTricycleColor,
+              decoration: InputDecoration(
+                labelText: "Tricycle Color",
+                border: InputBorder.none,
+                prefixIcon: Icon(Icons.colorize, color: Color(0xFF133A70)),
+              ),
+              items: [
+                DropdownMenuItem(value: "Yellow", child: Text("Yellow")),
+                DropdownMenuItem(value: "Blue", child: Text("Blue")),
+                DropdownMenuItem(value: "Green", child: Text("Green")),
+                DropdownMenuItem(value: "Red", child: Text("Red")),
+                DropdownMenuItem(value: "Others", child: Text("Others")),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  selectedTricycleColor = value;
+                  tricycleColorTextEditingController.text = value ?? '';
+                });
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Please select your tricycle color";
+                }
+                return null;
+              },
+              style: TextStyle(fontSize: 16.0, color: Colors.black),
+              dropdownColor: Colors.white,
+              isExpanded: true,
+            ),
+          ),
+
+          const SizedBox(height: 60.0),
+
+
+
+
 
         ],
       ),
     ),
     Step(
-      title: const Text("Biometrics"),
+      title: const Text("Identification"),
       state: currentStep > 2 ? StepState.complete : StepState.indexed,
       isActive: currentStep >= 2,
       content: Column(children: <Widget> [
