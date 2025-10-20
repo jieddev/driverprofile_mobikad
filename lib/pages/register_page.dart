@@ -27,6 +27,35 @@ class _RegisterPageState extends State<RegisterPage> {
   final tricyclePlateNumberTextEditingController = TextEditingController();
   // OR/CR Picture
 
+
+  Widget SummaryRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 130,
+            child: Text(
+              "$label:",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Colors.grey.shade700,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value.isNotEmpty ? value : "Not provided",
+              style: TextStyle(fontWeight: FontWeight.w400),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -350,6 +379,90 @@ class _RegisterPageState extends State<RegisterPage> {
       state: currentStep > 3 ? StepState.complete : StepState.indexed,
       isActive: currentStep >= 3,
       content: Column(children: <Widget>[
+        Text(
+        "Registration Summary",
+        style: TextStyle(
+          fontSize: 18, 
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF133A70),
+        ),
+      ),
+      SizedBox(height: 20),
+      
+      // Personal Information Section
+      Container(
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+                  "Personal Information",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                Divider(),
+                SummaryRow("First Name", firstNameTextEditingController.text),
+                SummaryRow("Middle Name", middleNameTextEditingController.text),
+                SummaryRow("Last Name", lastNameTextEditingController.text),
+                SummaryRow(
+                  "Date of Birth",
+                  dateOfBirthTextEditingController.text,
+                ),
+                SummaryRow("Gender", selectedGender ?? ""),
+                SummaryRow("Address", addressTextEditingController.text),
+                SummaryRow(
+                  "Contact Number",
+                  contactNumberTextEditingController.text,
+                ),
+              ],
+            ),
+          ),
+
+          SizedBox(height: 20),
+
+          // Vehicle Information Section
+          Container(
+            padding: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Vehicle Information",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                Divider(),
+                SummaryRow(
+                  "Tricycle Number",
+                  tricycleNumberTextEditingController.text,
+                ),
+                SummaryRow(
+                  "Tricycle Plate Number",
+                  tricyclePlateNumberTextEditingController.text,
+                ),
+                SummaryRow("Tricycle Color", selectedTricycleColor ?? ""),
+              ],
+            ),
+          ),
+
+          SizedBox(height: 30),
+
+          Center(
+            child: Text(
+              "Please review your information before submitting",
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                color: Colors.grey.shade700,
+              ),
+            ),
+          ),
+
 
         ],
       ),
